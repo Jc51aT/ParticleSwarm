@@ -88,37 +88,37 @@ def fitness(solution):
         fit += (solution[i] ** 2) - (10 * math.cos(2 * math.pi * solution[i]))
     return fit
 
+if __name__ == '__main__':
+    # User input
+    num_parts = int(input("Enter the number number of particles: "))
+    max_iterations = int(input("Enter the max number of iterations: "))
+    w = float(input("Enter Inertia Component: "))
+    c1 = float(input("Enter Cognitive Component: "))
+    c2 = float(input("Enter Social Component: "))
 
-# User input
-num_parts = int(input("Enter the number number of particles: "))
-max_iterations = int(input("Enter the max number of iterations: "))
-w = float(input("Enter Inertia Component: "))
-c1 = float(input("Enter Cognitive Component: "))
-c2 = float(input("Enter Social Component: "))
+    # initialize particles & velocity
+    swarm = ParticleSwarm(30, num_parts, max_iterations, w, c1, c2)
+    random_search = [random.uniform(-5.12, 5.12) for i in range(swarm.dimension)]
+    random_search_best_solution = random_search
 
-# initialize particles & velocity
-swarm = ParticleSwarm(30, num_parts, max_iterations, w, c1, c2)
-random_search = [random.uniform(-5.12, 5.12) for i in range(swarm.dimension)]
-random_search_best_solution = random_search
+    count = 0
 
-count = 0
+    while count < swarm.max_iter:
+        swarm.update_p_best()
+        swarm.set_neigh_best()
+        swarm.calc_new_velocity()
 
-while count < swarm.max_iter:
-    swarm.update_p_best()
-    swarm.set_neigh_best()
-    swarm.calc_new_velocity()
+        random_search = [random.uniform(-5.12, 5.12) for j in range(swarm.dimension)]
 
-    random_search = [random.uniform(-5.12, 5.12) for j in range(swarm.dimension)]
+        if fitness(random_search) < fitness(random_search_best_solution):
+            random_search_best_solution = random_search
 
-    if fitness(random_search) < fitness(random_search_best_solution):
-        random_search_best_solution = random_search
+        count += 1
 
-    count += 1
+    random_best = [random_search_best_solution, fitness(random_search_best_solution)]
+    print("Random Best Position: " + str(random_best[0]))
+    print("Random Best Fitness: " + str(random_best[1]))
 
-random_best = [random_search_best_solution, fitness(random_search_best_solution)]
-print("Random Best Position: " + str(random_best[0]))
-print("Random Best Fitness: " + str(random_best[1]))
-
-global_best = [swarm.neigh_best_position, swarm.neigh_best_fit]
-print("Global Best Position: " + str(global_best[0]))
-print("Global Best Fitness: " + str(global_best[1]))
+    global_best = [swarm.neigh_best_position, swarm.neigh_best_fit]
+    print("Global Best Position: " + str(global_best[0]))
+    print("Global Best Fitness: " + str(global_best[1]))
