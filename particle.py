@@ -87,6 +87,9 @@ def fitness(solution):
     return fit
 
 if __name__ == '__main__':
+
+    print("Begin Particle Swarm Optimization Demenstration")
+    
     # User input
     num_parts = int(input("Enter the number number of particles: "))
     max_iterations = int(input("Enter the max number of iterations: "))
