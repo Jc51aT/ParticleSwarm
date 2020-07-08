@@ -1,5 +1,3 @@
-# Tyler Applin 59020616
-
 import math
 import random
 
