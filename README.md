@@ -1,2 +1,2 @@
 # ParticleSwarm
-using particle swarm algorithm to solve optimization problem
+Particle swarm algorithm to solve optimization problem
